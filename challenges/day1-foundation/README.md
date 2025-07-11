@@ -46,6 +46,8 @@ By the end of Day 1, you will:
 - Responsible AI guardrails for production deployment
 - Transparency features for decision tracking and explainability
 
+📖 **[Learn more about Azure AI Foundry at Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-foundry/)**
+
 ## 🏗️ Challenges
 
 ### Challenge 1.1: Azure AI Foundry Model Deployment (45 minutes)
