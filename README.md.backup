@@ -1,0 +1,220 @@
+# AI-Powered AMT Migration Automation
+
+An intelligent, AI-driven solution for automating application migration tasks using Azure services and C#/.NET technologies.
+
+## 🚀 Project Overview
+
+Traditional Experion application migrations are slow, complex, and labor-intensive, often involving multi-week timelines, significant downtime risks, and manual procedures. This project aims to streamline the entire migration process using AI and automation, reducing migration time from weeks to days with almost zero downtime and no data corruption.
+
+## 🎯 Key Objectives
+
+This repository serves as a comprehensive training platform for software engineers to learn and implement key concepts for building AI-powered migration automation solutions. The project is structured as a 4-day hackathon with self-paced challenges that align with the solution architecture and identified technologies.
+
+## 🏗️ Solution Architecture
+
+### 1. AI-Powered Migration Assessment & Planning
+- **Azure AI Foundry Agents**: Specialized migration agents with domain expertise
+  - Infrastructure Assessment Agent for environment analysis
+  - Risk Analysis Agent for migration risk evaluation  
+  - Migration Planning Agent for comprehensive planning
+  - Cost Analysis Agent for TCO calculations
+- **Connected Agent Systems**: Multi-agent collaboration without custom orchestration
+- **Knowledge Grounding**: Vector stores and RAG for migration best practices
+- **Responsible AI**: Content safety filters and governance controls
+
+### 2. Intelligent Automation & Orchestration
+- **Semantic Kernel Framework**: AI orchestration platform for complex workflows
+  - Plugin-based architecture for extensible capabilities
+  - Group chat orchestration for collaborative agent planning
+  - Real-time streaming responses for complex operations
+  - Progressive tool integration and workflow automation
+- **Azure AI Search**: Intelligent knowledge retrieval
+  - Semantic search with vector embeddings
+  - Migration document indexing and querying
+  - Context-aware information retrieval
+
+### 3. Advanced Tool Integration & Productivity
+- **Multi-Tool Orchestration**: Comprehensive external service connectivity
+  - OpenAPI integration for cost calculators and external services
+  - Bing Custom Search for domain-specific knowledge retrieval
+  - File search capabilities for knowledge base querying
+  - Email automation for intelligent notifications
+- **Development Enhancement**: AI-powered development acceleration
+  - GitHub Copilot integration for intelligent code completion
+  - Model Context Protocol (MCP) for standardized AI communication
+  - Visual Studio Professional integration for enhanced productivity
+
+### 4. Monitoring & Governance
+- **Real-Time Monitoring**: Live progress tracking and status updates
+- **Centralized Logging**: Structured logging with Azure services
+- **Responsible AI Controls**: Content filtering and safety measures
+- **Agent Decision Tracking**: Thread logs and decision insight analysis
+
+## 🛠️ Technology Stack
+
+- **Core Platform**: C#/.NET 8.0
+- **AI Services**: 
+  - Azure AI Foundry (Model deployment, agent creation, connected agents)
+  - Azure OpenAI (GPT-4, content safety, responsible AI)
+  - Semantic Kernel (AI orchestration, plugin architecture)
+  - Model Context Protocol (MCP)
+- **Azure Services**:
+  - Azure AI Search (Semantic search, vector embeddings)
+  - Azure Blob Storage (Knowledge base storage)
+  - Azure Functions (MCP server implementation)
+  - Azure Key Vault (Secure configuration management)
+  - Application Insights (Monitoring and telemetry)
+- **Development Tools**:
+  - Visual Studio Professional 2022
+  - GitHub Copilot (AI-powered code completion and agent mode)
+  - Bing Custom Search (Domain-specific knowledge retrieval)
+  - OpenAPI Integration (External service connectivity)
+
+
+## 📚 Hackathon Structure
+
+### Day 1: Azure AI Foundry - Model Deployment & Agent Creation
+**Focus**: Azure AI Foundry services, model deployment, and intelligent agent creation
+- **Learning Objectives**: 
+  - Deploy AI models using Azure AI Foundry
+  - Create specialized AI agents for migration automation
+  - Set up responsible AI content filters and governance
+  - Implement knowledge grounding through vector stores
+  - Configure agent actions including email automation
+- **Key Technologies**: Azure AI Foundry, Azure OpenAI, AI agent creation, content safety, RAG
+- **Deliverables**: Deployed GPT-4 models, configured migration agents, vector stores for knowledge bases, email-enabled agents
+
+**Key Challenges**:
+- Azure AI Foundry model deployment through Azure Portal
+- AI agent creation with specialized migration capabilities and personas
+- Responsible AI policies and content filtering implementation
+- Vector store creation for migration knowledge bases
+- Email action integration for automated notifications
+
+### Day 2: AI Integration - Connected Agents & Advanced Tools
+**Focus**: Advanced AI integration, connected multi-agent systems, and sophisticated tool orchestration
+- **Learning Objectives**: 
+  - Build connected multi-agent systems using Azure AI Foundry
+  - Implement advanced tools including Bing Custom Search and OpenAPI integrations
+  - Create specialized agents with sophisticated tool orchestration
+  - Use Agent Catalog templates to accelerate development
+- **Key Technologies**: Connected agents, Bing Custom Search, OpenAPI integration, agent templates
+- **Deliverables**: Multi-agent migration system with tool orchestration, connected agent workflows
+
+**Key Challenges**:
+- Connected agent architecture for collaborative migration planning
+- Bing Custom Search integration for domain-specific knowledge retrieval
+- OpenAPI tool integration for external service connectivity
+- Agent Catalog template utilization for rapid development
+- Advanced tool orchestration and workflow automation
+
+### Day 3: GitHub Copilot & MCP Integration
+**Focus**: Development productivity enhancement, Model Context Protocol implementation, and workflow integration
+- **Learning Objectives**: 
+  - Install and configure GitHub Copilot in Visual Studio Enterprise
+  - Understand GitHub Copilot agent mode and advanced AI assistance
+  - Learn Model Context Protocol (MCP) architecture and implementation
+  - Integrate MCP with development workflows for enhanced productivity
+  - Set up Visual Studio Enterprise with Azure and GitHub MCP integration
+- **Key Technologies**: GitHub Copilot, Model Context Protocol (MCP), Visual Studio Enterprise, development workflow automation
+- **Deliverables**: Configured GitHub Copilot environment, MCP integration setup, enhanced development workflows
+
+**Key Challenges**:
+- GitHub Copilot installation and configuration in Visual Studio Enterprise
+- MCP architecture understanding and protocol implementation
+- Azure and GitHub MCP integration setup
+- Development workflow automation and productivity enhancement
+- Advanced AI-assisted development patterns and best practices
+
+### Day 4: Migration Automation with AI Search & Semantic Kernel
+**Focus**: Semantic Kernel orchestration, Azure AI Search integration, and advanced automation workflows
+- **Learning Objectives**: 
+  - Configure Azure AI Search using Azure Portal with migration documents
+  - Implement Semantic Kernel for AI orchestration in C# applications
+  - Connect to existing Azure AI Foundry agents using Semantic Kernel
+  - Build group chat orchestration with connected agents
+  - Create progressive automation workflows building upon each concept
+- **Key Technologies**: Semantic Kernel, Azure AI Search, group chat orchestration, progressive learning
+- **Deliverables**: AI Search service with migration knowledge base, Semantic Kernel applications, group chat agent orchestration
+
+**Key Challenges**:
+- Azure AI Search service setup with sample migration documents
+- Semantic Kernel implementation with Azure AI agent connections
+- Progressive tool integration (OpenAPI, file search, Bing grounding)
+- Group chat orchestration with specialized migration agents
+- Real-time streaming responses and comprehensive automation workflows
+
+## 🚦 Getting Started
+
+### Prerequisites
+- .NET 8.0 SDK or later
+- Azure subscription with contributor access
+- Visual Studio Enterprise 2022 (version 17.0 or later)
+- GitHub account with Copilot subscription
+- Git
+
+### Setup Instructions
+1. Clone this repository
+2. Navigate to the project directory
+3. Start with Day 1 to set up your Azure AI Foundry environment
+4. Follow the day-specific README files in each challenge folder:
+   - **Day 1**: `challenges/day1-foundation/README.md`
+   - **Day 2**: `challenges/day2-ai-integration/README.md` 
+   - **Day 3**: `challenges/day3-semantic kernel/README.md`
+   - **Day 4**: `challenges/day3-githubCopilot/mcp/README.md`
+5. Complete the challenges progressively, as each day builds upon the previous
+
+### Quick Start Path
+1. **Day 1**: Deploy your first AI models and create migration agents in Azure AI Foundry
+2. **Day 2**: Build connected multi-agent systems with advanced tool integration
+3. **Day 3**: Implement Semantic Kernel orchestration with AI Search capabilities
+4. **Day 4**: Enhance development productivity with GitHub Copilot and MCP integration
+
+## 📋 Project Structure
+
+```
+EM-Hack/
+├── .github/
+│   └── instructions/
+├── challenges/
+│   ├── day1-foundation/                    # Azure AI Foundry & Model Deployment
+│   │   ├── README.md
+│   │   └── docs/
+│   │       ├── 1_Software_Analysis.md
+│   │       ├── 2_Migration_Steps.md
+│   │       ├── 3_Validation_Checks.md
+│   │       └── 4_Customer_Communication_Templates.md
+│   ├── day2-ai-integration/               # Connected Agents & Advanced Tools
+│   │   └── README.md
+│   ├── day3-githubCopilot/               # GitHub Copilot & MCP Integration
+│   │   └── mcp/
+│   │       └── README.md
+│   └── day4-semantic kernel/             # Semantic Kernel & AI Search
+│       └── README.md
+├── docs/
+├── src/
+└── templates/
+```
+
+## 🔒 Security & Compliance
+
+- Least-privilege access principles
+- Data encryption in transit and at rest
+- Azure AD authentication and authorization
+- Audit logging and compliance reporting
+
+## 🤝 Contributing
+
+Please read our contributing guidelines and code of conduct before submitting pull requests.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📞 Support
+
+For questions and support, please refer to the documentation in each challenge folder or create an issue in this repository.
+
+---
+
+**Built with ❤️ for the Experion Migration Team**
