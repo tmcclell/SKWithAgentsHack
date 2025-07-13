@@ -174,68 +174,98 @@ Azure AI Foundry provides pre-built agent templates for common scenarios includi
 ### Walkthrough 2.4: OpenAPI Tool Integration (45 minutes)
 ###TODO
 
-**Summary**: Enhance an existing Azure AI Foundry agent by adding OpenAPI tool integration to connect with external APIs. This walkthrough demonstrates how to extend your InfrastructureAssessmentAgent from Walkthrough 2.1 with external API capabilities using standardized OpenAPI 3.0 specifications.
+**Summary**: Enhance an existing Azure AI Foundry agent by adding OpenAPI tool integration to connect with external APIs. This walkthrough demonstrates how to extend your agents with external API capabilities using standardized OpenAPI 3.0 specifications.
 
 **Prerequisites**: 
 - Azure AI Foundry project with completed quickstart setup
 - InfrastructureAssessmentAgent from Walkthrough 2.1 (or any existing agent)
-- OpenAPI 3.0 specification with required `operationId` for each function
 
 **Step-by-Step Guide**:
 
 **Step 1: Prepare OpenAPI Specification (15 minutes)**
 1. Create a simple migration cost calculator API specification:
    ```yaml
-   openapi: 3.0.0
-   info:
-     title: Migration Cost Calculator API
-     version: 1.0.0
-     description: API for calculating Azure migration costs and recommendations
-   
-   servers:
-     - url: https://jsonplaceholder.typicode.com
-   
-   paths:
-     /posts:
-       post:
-         operationId: calculate_migration_cost
-         summary: Calculate migration cost estimate
-         description: Simulates cost calculation for infrastructure migration
-         requestBody:
-           required: true
-           content:
-             application/json:
-               schema:
-                 type: object
-                 properties:
-                   title:
-                     type: string
-                     description: Migration scenario name
-                   body:
-                     type: string
-                     description: Infrastructure details for cost calculation
-                   userId:
-                     type: integer
-                     description: User identifier
-         responses:
-           '201':
-             description: Cost calculation completed
-             content:
-               application/json:
-                 schema:
-                   type: object
-                   properties:
-                     id: {type: integer}
-                     title: {type: string}
-                     body: {type: string}
-                     userId: {type: integer}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Migration Cost Calculator API",
+    "version": "1.0.0",
+    "description": "API for calculating Azure migration costs and recommendations"
+  },
+  "servers": [
+    {
+      "url": "https://jsonplaceholder.typicode.com"
+    }
+  ],
+  "paths": {
+    "/posts": {
+      "post": {
+        "operationId": "calculate_migration_cost",
+        "summary": "Calculate migration cost estimate",
+        "description": "Simulates cost calculation for infrastructure migration",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Migration scenario name"
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Infrastructure details for cost calculation"
+                  },
+                  "userId": {
+                    "type": "integer",
+                    "description": "User identifier"
+                  }
+                },
+                "required": ["title", "body", "userId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cost calculation completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "userId": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
    ```
    
    > **Note**: This example uses JSONPlaceholder (a free testing API) to demonstrate the integration. In a real scenario, you would use your actual migration API with proper authentication.
 
 **Step 2: Add OpenAPI Tool to Existing Agent (15 minutes)**
 1. Navigate to [Azure AI Foundry portal](https://ai.azure.com/) and select your AI Project
-2. Go to "Agents" section and select your **InfrastructureAssessmentAgent** from Walkthrough 2.1
+2. Go to "Agents" section and select your agent from Walkthrough 2.1
 3. Click "Edit" to modify the existing agent
 4. Scroll down to the "Tools" section
 5. Click "Add" → "OpenAPI Specified Tool"
@@ -304,303 +334,6 @@ For APIs requiring authentication, you can set up:
 
 **Documentation Reference**: [OpenAPI Tool Documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/openapi-spec)
 
-### Walkthrough 2.5: Azure Function Calling with PowerShell Scripts (45 minutes)
-
-**Summary**: Create Azure Functions that execute PowerShell scripts for infrastructure management and automation, then integrate them as callable tools for AI agents. This walkthrough demonstrates how to build serverless functions that can be invoked by agents to perform real infrastructure operations.
-
-**Prerequisites**: 
-- Azure AI Foundry project with agents configured
-- Azure subscription with Functions service enabled
-- Visual Studio Code with Azure Functions extension
-- PowerShell execution policy configured
-
-**Step-by-Step Guide**:
-
-**Step 1: Create Azure Function App (10 minutes)**
-1. Navigate to Azure Portal → "Create a resource" → "Function App"
-2. Configure the Function App:
-   - **Function App name**: `migration-powershell-functions`
-   - **Runtime stack**: PowerShell Core
-   - **Version**: 7.4
-   - **Region**: Same as your AI Foundry project
-   - **Operating System**: Windows
-   - **Plan type**: Consumption (Serverless)
-3. Click "Review + create" → "Create"
-4. Wait for deployment to complete
-
-**Step 2: Create PowerShell Function for Infrastructure Assessment (15 minutes)**
-1. Open Visual Studio Enterprise
-2. Install Azure Functions extension if not already installed
-3. Create new Azure Functions project:
-   - Go to File → New → Project
-   - Select "Azure Functions" template under Visual C# → Cloud
-   - Choose PowerShell as runtime
-   - Select HTTP trigger template
-   - Function name: `Get-InfrastructureStatus`
-4. Replace the default function code with migration-specific PowerShell:
-
-```powershell
-using namespace System.Net
-
-param($Request, $TriggerMetadata)
-
-# Parse input parameters
-$ServerName = $Request.Query.ServerName
-$CheckType = $Request.Query.CheckType
-
-if (-not $ServerName) {
-    Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-        StatusCode = [HttpStatusCode]::BadRequest
-        Body = "ServerName parameter is required"
-    })
-    return
-}
-
-# Migration infrastructure assessment logic
-$assessmentResult = @{
-    ServerName = $ServerName
-    Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    CheckType = $CheckType
-}
-
-switch ($CheckType) {
-    "connectivity" {
-        # Simulate connectivity check
-        $assessmentResult.Status = "Online"
-        $assessmentResult.ResponseTime = "12ms"
-        $assessmentResult.Details = "Server is reachable and responding"
-    }
-    "resources" {
-        # Simulate resource assessment
-        $assessmentResult.CPU = "65%"
-        $assessmentResult.Memory = "8.2GB/16GB"
-        $assessmentResult.Disk = "250GB/500GB"
-        $assessmentResult.Details = "Resources within normal parameters"
-    }
-    "compatibility" {
-        # Simulate compatibility check
-        $assessmentResult.OSVersion = "Windows Server 2019"
-        $assessmentResult.NetFramework = "4.8"
-        $assessmentResult.AzureCompatible = $true
-        $assessmentResult.Details = "Compatible with Azure migration"
-    }
-    default {
-        # General health check
-        $assessmentResult.OverallHealth = "Good"
-        $assessmentResult.MigrationReady = $true
-        $assessmentResult.Details = "Server ready for migration assessment"
-    }
-}
-
-# Return structured response
-Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-    StatusCode = [HttpStatusCode]::OK
-    Body = ($assessmentResult | ConvertTo-Json -Depth 10)
-    Headers = @{
-        "Content-Type" = "application/json"
-    }
-})
-```
-
-**Step 3: Deploy Function to Azure (10 minutes)**
-1. In Visual Studio Enterprise, right-click on your Azure Functions project in Solution Explorer
-2. Select "Publish..." from the context menu
-3. Choose "Azure" as the publish target → "Azure Function App (Windows)"
-4. Select your subscription and the function app created in Step 1
-5. Click "Publish" to start deployment
-6. Wait for deployment to complete (status shown in Output window)
-7. Test the function:
-   - Go to Azure Portal → Your Function App → Functions → `Get-InfrastructureStatus`
-   - Click "Code + Test" tab in the function view
-   - Click "Test/Run" button at the top
-   - Add query parameters: `ServerName=PROD-SQL01&CheckType=resources`
-   - Click "Run" and verify JSON response
-
-**Step 4: Create OpenAPI Specification for the Function (5 minutes)**
-Create an OpenAPI spec that describes your PowerShell function:
-
-```yaml
-openapi: 3.0.0
-info:
-   title: "Migration PowerShell Functions API"
-   version: "1.0.0"
-   description: "Azure Functions executing PowerShell scripts for infrastructure management and migration assessment"
-
-servers:
-   - url: "https://migration-powershell-functions.azurewebsites.net"
-
-security:
-   - functionKey: []
-
-paths:
-   "/api/Get-InfrastructureStatus":
-      get:
-         operationId: "assess_infrastructure_status"
-         summary: "Assess server infrastructure status"
-         description: "Execute PowerShell script to check server connectivity, resources, or Azure migration compatibility"
-         parameters:
-            - name: "ServerName"
-               in: "query"
-               required: true
-               schema:
-                  type: "string"
-               description: "Name or IP address of the server to assess"
-            - name: "CheckType"
-               in: "query"
-               required: false
-               schema:
-                  type: "string"
-                  enum: ["connectivity", "resources", "compatibility", "general"]
-                  default: "general"
-               description: "Type of infrastructure check to perform"
-         responses:
-            "200":
-               description: "Infrastructure assessment completed successfully"
-               content:
-                  "application/json":
-                     schema:
-                        type: "object"
-                        properties:
-                           ServerName:
-                              type: "string"
-                              description: "Name of the assessed server"
-                           Timestamp:
-                              type: "string"
-                              format: "date-time"
-                              description: "When the assessment was performed"
-                           CheckType:
-                              type: "string"
-                              description: "Type of check that was performed"
-                           Status:
-                              type: "string"
-                              description: "Overall status of the server"
-                           Details:
-                              type: "string"
-                              description: "Detailed assessment information"
-                           # Additional properties based on CheckType
-                           ResponseTime:
-                              type: "string"
-                              description: "Server response time (connectivity check)"
-                           CPU:
-                              type: "string"
-                              description: "CPU utilization percentage (resources check)"
-                           Memory:
-                              type: "string"
-                              description: "Memory usage information (resources check)"
-                           Disk:
-                              type: "string"
-                              description: "Disk space information (resources check)"
-                           OSVersion:
-                              type: "string"
-                              description: "Operating system version (compatibility check)"
-                           NetFramework:
-                              type: "string"
-                              description: ".NET Framework version (compatibility check)"
-                           AzureCompatible:
-                              type: "boolean"
-                              description: "Azure migration compatibility status"
-                           OverallHealth:
-                              type: "string"
-                              description: "Overall server health status (general check)"
-                           MigrationReady:
-                              type: "boolean"
-                              description: "Migration readiness status (general check)"
-                        required:
-                           - ServerName
-                           - Timestamp
-                           - CheckType
-                           - Status
-                           - Details
-            "400":
-               description: "Bad request - missing or invalid parameters"
-               content:
-                  "application/json":
-                     schema:
-                        type: "object"
-                        properties:
-                           error:
-                              type: "string"
-                              description: "Error message describing the issue"
-            "500":
-               description: "Internal server error during PowerShell execution"
-               content:
-                  "application/json":
-                     schema:
-                        type: "object"
-                        properties:
-                           error:
-                              type: "string"
-                              description: "Error message from the server"
-
-components:
-   securitySchemes:
-      functionKey:
-         type: "apiKey"
-         in: "header"
-         name: "x-functions-key"
-         description: "Azure Functions host key for authentication"
-```
-
-
-**Step 5: Integrate Function with AI Agent (5 minutes)**
-1. Navigate to Azure AI Foundry → Your project → "Agents"
-2. Select your **InfrastructureAssessmentAgent** or create a new agent
-3. In the agent configuration, scroll to "Tools" section
-4. Click "Add" → "OpenAPI Specified Tool"
-5. Configure the PowerShell Function tool:
-   - **OpenAPI spec**: Paste the YAML specification from Step 4
-   - **Connection**: Leave blank (use Function App's public endpoint)
-   - **Tool name**: `infrastructure_assessor`
-   - **Description**: "Execute PowerShell scripts to assess server infrastructure"
-6. Update agent instructions to include the new capability:
-
-```
-You are an infrastructure assessment specialist. You can:
-
-1. Analyze infrastructure configurations and recommend Azure service mappings
-2. Execute real-time PowerShell-based infrastructure assessments using the infrastructure_assessor tool
-3. Provide detailed technical recommendations based on live server data
-
-When assessing infrastructure:
-- Use the infrastructure_assessor tool to get real-time server status
-- Specify appropriate CheckType based on assessment needs:
-  - connectivity: Check if server is reachable
-  - resources: Get CPU, memory, and disk usage
-  - compatibility: Verify Azure migration compatibility
-  - general: Overall health assessment
-
-Always provide actionable recommendations based on the PowerShell assessment results.
-```
-
-**Step 6: Test Complete Integration**
-1. In the agent playground, test the PowerShell integration:
-   ```
-   Please assess the infrastructure status of server PROD-SQL01. 
-   I need to know about its resource utilization and Azure migration compatibility.
-   ```
-
-2. Verify the agent:
-   - Calls the PowerShell function via the infrastructure_assessor tool
-   - Receives structured JSON response with server details
-   - Provides intelligent analysis based on the PowerShell results
-   - Offers migration recommendations using real server data
-
-**Advanced PowerShell Scenarios (Optional)**
-You can extend this pattern for other migration tasks:
-
-- **Database Assessment**: PowerShell scripts to check SQL Server compatibility
-- **Application Discovery**: Scripts to inventory installed applications
-- **Network Configuration**: Scripts to assess network requirements
-- **Security Compliance**: Scripts to check security policies and configurations
-
-**Security Considerations**:
-- Configure Function App authentication for production use
-- Use Azure Key Vault for storing sensitive credentials
-- Implement proper error handling and logging
-- Restrict Function App network access as needed
-
-**Documentation Reference**: [Function Calling with Azure Functions](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/function-calling?pivots=csharp)
-
 ## 📝 Deliverables
 
 After completing Day 2 tutorial walkthroughs, you should have:
@@ -609,7 +342,6 @@ After completing Day 2 tutorial walkthroughs, you should have:
 - [ ] **Agent Catalog Implementation**: Customized agent template adapted for migration contract analysis
 - [ ] **Custom Search Configuration**: Domain-specific Bing Custom Search for migration knowledge retrieval
 - [ ] **OpenAPI Tool Integration**: External API connectivity with secure authentication
-- [ ] **Azure Function PowerShell Integration**: Serverless functions executing PowerShell scripts as agent tools
 
 ## 🚀 Next Steps
 
