@@ -18,7 +18,7 @@ An intelligent, AI-driven s## 🚀 Quick Start
    - Review `QUICK-START.md` for detailed setup and daily expectations
    - Engage with real migration scenarios in `challenges/day1-foundation/docs/`
    - Don't hesitate to ask questions during demos and hands-on sessions
-   - Collaborate and share discoveries with fellow participantsting enterprise migration tasks using **Semantic Kernel**, **Azure AI Foundry Agents**, and **Azure AI services**. This hackathon project demonstrates how to build sophisticated AI-powered automation tools for complex migration scenarios.
+   - Collaborate and share discoveries with fellow participantsting enterprise migration tasks using **Semantic Kernel**, **Azure AI Foundry Agents**, **Azure AI services**, and **GitHub Copilot Agents**. This hackathon project demonstrates how to build sophisticated AI-powered automation tools for complex migration scenarios.
 
 ## 🚀 Project Overview
 
@@ -27,41 +27,14 @@ This repository contains a comprehensive training platform that teaches develope
 - **Semantic Kernel** for AI orchestration and function calling
 - **Azure AI Foundry Agents** for specialized AI agents with domain expertise  
 - **Connected multi-agent systems** for collaborative AI workflows
-- **Advanced AI tools** including custom search, document analysis, and API integration
+- **Advanced AI tools** including AI search, Bing Search, vector assistant, and API integration
 - **Getting Started with GitHub Copilot Agents and MCP**
 
 The project transforms traditional manual migration processes (which can take weeks) into intelligent, automated workflows that complete in days with minimal downtime and reduced risk.
 
-## 🎯 Key Learning Objectives
+We will be simulating an Azure migration during this hack. After each learning session, please use what you've learned to build a solution for the migration services we are looking to build. Apply the exercises to the real world example. 
 
-By completing this hackathon, you will learn to:
-
-- Build connected multi-agent systems using Azure AI Foundry
-- Implement Semantic Kernel for AI orchestration and automation
-- Create specialized AI agents with sophisticated tool integration
-- Design migration automation workflows using AI-powered decision making
-- Integrate multiple Azure AI services for comprehensive migration solutions
-
-## 🏗️ Solution Architecture
-
-### 1. AI-Powered Migration Assessment & Planning
-- **Azure AI Foundry Agents**: Specialized migration agents with domain expertise
-  - Infrastructure Assessment Agent for environment analysis
-  - Risk Analysis Agent for migration risk evaluation
-  - Migration Planning Agent for comprehensive planning
-  - Cost Analysis Agent for TCO calculations
-
-### 2. Semantic Kernel Integration
-- **AI Orchestration**: Coordinate complex multi-step migration workflows
-- **Function Calling**: Enable AI agents to execute migration tasks automatically
-- **Plugin Architecture**: Extensible system for migration-specific capabilities
-- **Memory Management**: Maintain context across long-running migration processes
-
-### 3. Connected Multi-Agent Systems
-- **Agent Orchestration**: Main coordinator delegates tasks to specialized agents
-- **Tool Integration**: Advanced capabilities including custom search, document analysis
-- **Workflow Automation**: End-to-end migration process automation
-- **Real-time Monitoring**: Track progress and handle exceptions intelligently
+**Come back and ask questions.**
 
 ## 📚 Hackathon Structure & Expectations
 
@@ -81,7 +54,7 @@ This is organized as a **4-day progressive hackathon** with hands-on challenges.
 
 ### 👩‍🏫 Your Facilitator
 
-**Tammy McClellan** will be guiding you through this hackathon journey. With extensive experience in Azure AI services, enterprise migrations, and developer education, Tammy brings both technical depth and practical insights to help you navigate the complexities of building AI-powered automation solutions. Her approach emphasizes hands-on learning, collaborative problem-solving, and building production-ready skills that you can apply in real-world scenarios.
+**Tammy McClellan** will be guiding you through this hackathon journey. With extensive experience working on manufacturing plants floors. I have expertise in Azure AI services, enterprise migrations, and developer education, Tammy brings both technical depth and practical insights to help you navigate the complexities of building AI-powered automation solutions. Her approach emphasizes hands-on learning, collaborative problem-solving, and building production-ready skills that you can apply in real-world scenarios.
 
 ### 🎯 Learning Philosophy
 
@@ -89,31 +62,36 @@ This hackathon is designed to be:
 - **Practical over Perfect**: Focus on building working solutions rather than flawless implementations
 - **Collaborative**: Learn from each other's approaches and challenges
 - **Iterative**: Build understanding progressively, with each day reinforcing previous concepts
-- **Real-World Oriented**: Use actual migration scenarios to understand practical applications
+- **Real-World Oriented**: Use migration scenarios to understand practical applications
 
 ### Day 1: Foundation - Azure AI Foundry Model Deployment & Agent Creation
 - Deploy AI models and create migration planning agents using Azure AI Foundry
-- Work with real PLC controller migration scenarios and enterprise system documentation
-- Set up responsible AI content filters and vector stores with actual migration artifacts
+- Simular migration scenarios with Azure migration
+- Set up responsible AI content filters and vector stores with migration artifacts
 - Build email automation workflows for customer communication
+- Apply learned concepts to real world scenerio.
 
 ### Day 2: AI Integration - Connected Agents & Advanced Tools  
 - Develop connected multi-agent systems for comprehensive migration planning
 - Implement specialized agents: Infrastructure Assessment, Risk Analysis, Cost Analysis
 - Integrate Bing Custom Search for technology research and OpenAPI for system integration
 - Use Agent Catalog templates to accelerate development with proven patterns
+- Apply learned concepts to real world scenerio.
 
 ### Day 3: GitHub Copilot & Model Context Protocol (MCP)
 - Install and configure GitHub Copilot for AI-assisted development workflows
 - Learn Model Context Protocol architecture for enhanced AI context management
 - Build intelligent development assistance tools for migration code generation
 - Integrate MCP with Visual Studio Professional for enhanced productivity
+- Apply learned concepts to real world scenerio.
 
 ### Day 4: Semantic Kernel - AI Orchestration & Automation
 - Implement Semantic Kernel for sophisticated AI workflow orchestration
+- Build AI enabled chat UI
 - Build group chat orchestration with multiple connected agents
-- Create end-to-end migration automation pipelines with function calling
-- Develop production-ready AI solutions with Azure AI Search integration
+- Apply agents knowledge and tools
+- Create end-to-end automation pipelines
+- Apply learned concepts to real world scenerio.
 
 ## 🚀 Quick Start
 
@@ -128,11 +106,6 @@ This hackathon is designed to be:
    git clone https://github.com/[your-username]/SKWithAgentsHack.git
    cd SKWithAgentsHack
    `
-
-3. **Choose Your Learning Path**
-   - Start with challenges/day1-foundation/ for beginners
-   - Jump to challenges/day2-ai-integration/ if familiar with AI basics
-   - Advanced users can begin with challenges/day4-semantic-kernel/
 
 ## 📖 Documentation
 
@@ -151,24 +124,6 @@ Each day's challenge includes:
 - **GitHub Copilot** - AI-assisted code generation
 - **Model Context Protocol** - Enhanced AI context management
 - **.NET 8.0 / C#** - Primary development framework
-
-## 🎯 Target Scenarios & Real-World Applications
-
-This hackathon addresses actual enterprise migration challenges using realistic examples:
-
-- **PLC Controller Modernization** - Work with real firmware versions, hardware models, and custom code analysis
-- **Enterprise Application Migration** - Legacy .NET Framework to Azure App Service scenarios
-- **Database Migration** - SQL Server 2014 to Azure SQL Database with 500GB+ datasets  
-- **Infrastructure Migration** - Windows Server 2016 VM estates to Azure Virtual Machines
-- **Compliance & Risk Management** - Automated assessment using actual enterprise validation checklists
-
-**Sample Data & Scenarios:**
-- Real configurations and compatibility matrices
-- Enterprise software analysis reports with actual technology stacks
-- Migration validation checklists from production environments
-- Customer communication templates based on actual project experiences
-
-These authentic scenarios help bridge the gap between learning AI technologies and applying them to solve real business challenges.
 
 ## 🤝 Contributing
 
