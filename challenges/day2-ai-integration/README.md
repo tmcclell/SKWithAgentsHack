@@ -10,8 +10,33 @@ By the end of Day 2, you will:
 
 ## 📚 Key Concepts
 
+### RAG (Retrieval-Augmented Generation)
+RAG combines large language models with external knowledge retrieval to provide more accurate, up-to-date responses. In migration scenarios, RAG enables agents to access specific documentation, best practices, and organizational knowledge bases to make informed recommendations. Azure AI Foundry implements RAG through vector stores and knowledge bases, allowing agents to search and retrieve relevant information before generating responses.
+
+### Agent-to-Agent (A2A) Communication
+A2A refers to the communication protocol and architecture that enables autonomous agents to interact, share information, and coordinate tasks without human intervention. In Azure AI Foundry's connected agent system, A2A communication allows the main orchestrator agent to delegate specialized tasks to sub-agents and receive structured responses. This creates a collaborative multi-agent workflow where each agent contributes its domain expertise while maintaining clear boundaries and responsibilities. A2A patterns are essential for building scalable, maintainable agent systems that can handle complex migration scenarios through intelligent task distribution and result synthesis.
+
+### Vector Stores
+Vector stores enable RAG (Retrieval-Augmented Generation) by storing and retrieving relevant information to enhance agent responses. In Azure AI Foundry, vector stores create searchable knowledge bases from uploaded documents, allowing agents to access specific migration documentation, best practices, and organizational knowledge. This ensures agents provide accurate, contextually relevant recommendations based on your specific migration scenarios and requirements rather than relying solely on general training data.
+
+**Vector Stores vs. Traditional Storage**:
+- **Vector Stores**: Store documents as high-dimensional mathematical vectors (embeddings) that capture semantic meaning, enabling similarity-based search and retrieval. When an agent queries "database migration risks," the vector store finds semantically similar content even if it uses different terminology like "data transfer vulnerabilities."
+- **Traditional Storage**: Store documents as files or records with keyword-based search capabilities. Retrieval depends on exact keyword matches, making it less effective for understanding context and intent in natural language queries.
+
+Vector stores provide superior contextual understanding for AI agents by matching the semantic intent of queries rather than relying on exact keyword matches.
+
 ### Connected Agents
 Connected agents enable collaborative multi-agent systems where a main agent intelligently delegates tasks to specialized sub-agents without requiring custom orchestration code. This modular approach improves reliability, traceability, and extensibility for complex workflows.
+### A2A (Agent-to-Agent Communication)
+A2A enables autonomous agents to communicate and coordinate without human intervention. In Azure AI Foundry's connected agent architecture, a main orchestrator agent delegates specialized tasks to sub-agents (like Infrastructure Assessment, Risk Analysis, Migration Planning) and receives structured responses. This creates collaborative workflows where each agent contributes domain expertise while maintaining clear boundaries, essential for scalable migration automation through intelligent task distribution and result synthesis.
+
+**Why A2A is Significant**:
+- **Scalability**: Enables complex migration workflows to be broken down into manageable, specialized tasks that can be processed in parallel
+- **Reliability**: Reduces single points of failure by distributing responsibilities across multiple specialized agents
+- **Maintainability**: Allows individual agents to be updated or replaced without affecting the entire system
+- **Expertise Isolation**: Each agent can focus on its specific domain (infrastructure, risk, planning) without needing to understand other domains
+- **Reusability**: Specialized agents can be reused across different migration scenarios and projects
+- **Traceability**: Provides clear audit trails of which agent handled which aspect of the migration analysis
 
 ### Agent Catalog Templates
 Azure AI Foundry provides pre-built agent templates for common scenarios including browser automation, compliance checking, healthcare workflows, and research tasks. These templates accelerate development with proven patterns and best practices.
@@ -355,6 +380,7 @@ After completing Day 2 tutorials, you'll move to Day 3 where you'll implement mi
 - [Bing Custom Search Integration](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/bing-custom-search)
 - [OpenAPI Tool Integration](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/openapi-spec)
 - [Function Calling with Azure Functions](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/function-calling?pivots=csharp)
+- [Integrating Semantic Kernel Python with Google’s A2A Protocol](https://www.microsoft.com/en-us/microsoft-cloud/blog/2025/05/07/empowering-multi-agent-apps-with-the-open-agent2agent-a2a-protocol/)
 
 ### GitHub Resources
 - [Agent Catalog Templates](https://github.com/Azure/ai-foundry-agent-catalog)
