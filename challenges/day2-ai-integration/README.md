@@ -145,6 +145,8 @@ Azure AI Foundry provides pre-built agent templates for common scenarios includi
 
 ### Walkthrough 2.3: Bing Custom Search Integration (30 minutes)
 
+### Skip due to costs associated - not enabled in the VS Subscription Credits.
+
 **Summary**: Configure Bing Custom Search for domain-specific migration knowledge retrieval, allowing agents to search within configurable sets of public web domains relevant to your migration scenarios.
 
 **Prerequisites**: 
