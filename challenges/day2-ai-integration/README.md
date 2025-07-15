@@ -141,12 +141,6 @@ Azure AI Foundry provides pre-built agent templates for common scenarios includi
    
    Focus on migration-specific terms like SLAs, data handling, security requirements, and liability provisions.
    ```
-
-**Step 3: Configure Tools and Test**
-1. Add File Search tool for contract document analysis
-2. Configure OpenAPI tool for compliance database integration
-3. Test with sample migration contract or service agreement
-
 **Documentation Reference**: [Agent Catalog Documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/concepts/agent-catalog)
 
 ### Walkthrough 2.3: Bing Custom Search Integration (30 minutes)
