@@ -191,18 +191,23 @@ Azure AI Foundry provides pre-built agent templates for common scenarios includi
 **Documentation Reference**: [Bing Custom Search Documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/bing-custom-search)
 
 ### Walkthrough 2.4: OpenAPI Tool Integration (45 minutes)
-###TODO
 
 **Summary**: Enhance an existing Azure AI Foundry agent by adding OpenAPI tool integration to connect with external APIs. This walkthrough demonstrates how to extend your agents with external API capabilities using standardized OpenAPI 3.0 specifications.
 
-**Prerequisites**: 
-- Azure AI Foundry project with completed quickstart setup
-- InfrastructureAssessmentAgent from Walkthrough 2.1 (or any existing agent)
-
-**Step-by-Step Guide**:
-
 **Step 1: Prepare OpenAPI Specification (15 minutes)**
-1. Create a simple migration cost calculator API specification:
+1. Go to "Agents" section and select your agent from Walkthrough 2.1
+2. Click "Edit" to modify the existing agent
+3. Scroll down to the "Tools" section
+4. Click "Add" → "OpenAPI Specified Tool"
+5. Configure the OpenAPI tool:
+   - **OpenAPI spec**: paste your YAML specification below
+   - **Connection**: Leave blank for anonymous APIs (like JSONPlaceholder)
+   - **Tool name**: `cost_calculator`
+   - **Description**: "Calculate migration costs and provide estimates"
+6. Click "Add tool" to save
+
+
+ Cost calculator API specification:
    ```yaml
 {
   "openapi": "3.0.0",
@@ -282,20 +287,7 @@ Azure AI Foundry provides pre-built agent templates for common scenarios includi
    
    > **Note**: This example uses JSONPlaceholder (a free testing API) to demonstrate the integration. In a real scenario, you would use your actual migration API with proper authentication.
 
-**Step 2: Add OpenAPI Tool to Existing Agent (15 minutes)**
-1. Navigate to [Azure AI Foundry portal](https://ai.azure.com/) and select your AI Project
-2. Go to "Agents" section and select your agent from Walkthrough 2.1
-3. Click "Edit" to modify the existing agent
-4. Scroll down to the "Tools" section
-5. Click "Add" → "OpenAPI Specified Tool"
-6. Configure the OpenAPI tool:
-   - **OpenAPI spec**: Upload or paste your YAML specification from Step 1
-   - **Connection**: Leave blank for anonymous APIs (like JSONPlaceholder)
-   - **Tool name**: `cost_calculator`
-   - **Description**: "Calculate migration costs and provide estimates"
-7. Click "Add tool" to save
-
-**Step 3: Update Agent Instructions (10 minutes)**
+**Step 2: Update Agent Instructions (10 minutes)**
 1. In the same agent editing view, update the "Instructions" field to include the new capability:
    ```
    You are an infrastructure assessment specialist focused on analyzing legacy systems and mapping them to Azure services. Your capabilities include:
@@ -316,7 +308,7 @@ Azure AI Foundry provides pre-built agent templates for common scenarios includi
 
 2. Click "Save" to update the agent
 
-**Step 4: Test Enhanced Agent with OpenAPI Tool (5 minutes)**
+**Step 3: Test Enhanced Agent with OpenAPI Tool (5 minutes)**
 1. Click "Try in playground" from your updated agent
 2. Test the enhanced functionality with a comprehensive query:
    ```
