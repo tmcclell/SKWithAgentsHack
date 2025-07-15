@@ -2,7 +2,8 @@
 
 ## 🎯 Learning Objectives
 
-By the end of Day 4, you will:
+By the end of Day 3, you will:
+- Configure Azure AI Search using Azure Portal with sample documents
 - Install and configure GitHub Copilot in Visual Studio Professional
 - Understand GitHub Copilot key concepts including agent mode
 - Learn Model Context Protocol (MCP) key concepts and architecture
@@ -10,6 +11,13 @@ By the end of Day 4, you will:
 - Integrate MCP with development workflows for enhanced productivity
 
 ## 📚 Key Concepts
+
+### AI Search Integration
+- **Azure AI Search Overview**: Intelligent search service for migration data
+  - Semantic search capabilities with vector embeddings
+  - Portal-based configuration for rapid prototyping
+  - Integration with Azure AI services for content enrichment
+  - Scalable indexing and querying for migration documentation
 
 ### GitHub Copilot Overview
 - **AI-Powered Code Completion**: Intelligent code suggestions and completions
@@ -38,6 +46,106 @@ By the end of Day 4, you will:
   - Enhanced code understanding and generation
 
 ## 🏗️ Tutorial Walkthroughs
+
+### Walkthrough 3.1: AI Search Using Azure AI Foundry (45 minutes)
+
+**Summary**: Create an Azure AI Search service and integrate it with Azure AI Foundry agents using the Azure AI Foundry studio. This walkthrough demonstrates how to set up intelligent search for migration knowledge bases and connect it to AI agents for enhanced RAG capabilities.
+
+**Step 1: Create Azure AI Search Service (10 minutes)**
+1. Navigate to [Azure Portal](https://portal.azure.com)
+2. Click "Create a resource" → Search for "Azure AI Search"
+3. Configure the service:
+   - **Service name**: `migration-search-foundry`
+   - **Resource group**: Same as your AI Foundry project
+   - **Location**: East US 2 (same region as AI Foundry)
+   - **Pricing tier**: Free
+4. Click "Review + Create" → "Create"
+5. Wait for deployment to complete
+6. Choose Import Date (top menu bar)
+6. Note the search service endpoint and admin key for later use
+
+![Azure AI Search Integration with AI Foundry](https://docs.microsoft.com/en-us/azure/ai-foundry/media/agents/azure-ai-search-integration.png)
+
+**Step 2: Create Search Index in AI Foundry (15 minutes)**
+1. Navigate to [Azure AI Foundry Studio](https://ai.azure.com)
+2. Open your existing AI Foundry project
+3. Go to "Agents" → Select your MigrationPlannerAgent
+4. Choose +Add in Knowledge
+5. Choose Azure AI Search
+6. Choose Indexes that are not part of this project
+7. Click dropdown for Azure AI Search resource connection and choose "Connect other Azure AI Search Resource."
+8. Find the resource created in Step 1.
+9. Choose "Create a new index" → this will redirect you back to the Azure Portal
+3. Go to "Indexes" in the left navigation
+4. Click "Create new index"
+5. Configure the index:
+   - **Index name**: `migration-knowledge-base`
+   - **Data source**: Upload files
+   - **Search service**: Select your `migration-search-foundry` service
+   - **Vector settings**: Enable if using embedding models
+
+6. Upload your four JSON documents:
+   - `vm-migration-assessment.json`
+   - `database-migration-strategy.json`
+   - `webapp-modernization.json`
+   - `cost-optimization.json`
+
+7. Configure index schema:
+   - **Key field**: `id` (automatically detected)
+   - **Searchable fields**: `title`, `content`, `category`, `targetAzureService`
+   - **Filterable fields**: `category`, `migrationPhase`, `complexity`
+   - **Facetable fields**: `category`, `migrationPhase`, `complexity`
+
+8. Click "Create index" and wait for processing to complete
+
+**Step 4: Integrate Search with AI Agent (15 minutes)**
+1. In AI Foundry Studio, go to "Agents" → "Create new agent"
+2. Configure the agent:
+   - **Agent name**: `Migration Search Assistant`
+   - **Description**: `AI agent that helps with migration planning using search capabilities`
+   - **Instructions**: 
+   ```
+   You are a migration planning assistant. Use the Azure AI Search tool to find relevant migration documentation and best practices. When users ask about migration strategies, search the knowledge base for relevant information and provide comprehensive, actionable guidance based on the search results.
+   
+   Always include:
+   1. Relevant migration phase information
+   2. Estimated effort and complexity
+   3. Prerequisites and deliverables
+   4. Best practices and recommendations
+   ```
+
+3. Add the Azure AI Search tool:
+   - Click "Add tool" → "Azure AI Search"
+   - **Search service**: Select your `migration-search-foundry` service
+   - **Index**: Select `migration-knowledge-base`
+   - **Authentication**: Use system-assigned managed identity
+
+4. Test the integration:
+   - Ask: "How do I assess VMs for Azure migration?"
+   - Ask: "What are the best practices for database migration?"
+   - Ask: "How can I optimize costs after migration?"
+
+5. Verify the agent uses search results to provide detailed, contextual responses
+
+**Step 5: Test Advanced Search Capabilities (10 minutes)**
+1. Test semantic search queries:
+   - "Find information about minimizing downtime during migration"
+   - "What are the security considerations for cloud migration?"
+   - "How to handle legacy applications in Azure?"
+
+2. Test filtered searches:
+   - Ask the agent to find only "High complexity" migrations
+   - Search for specific categories like "Database" or "WebApplication"
+   - Filter by migration phase like "Assessment" or "Planning"
+
+3. Verify search results include:
+   - Relevant document excerpts
+   - Proper context and formatting
+   - Actionable recommendations based on search content
+
+**Documentation Reference**: [Azure AI Search with AI Foundry](https://review.learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/azure-ai-search?branch=main&tabs=azurecli)
+
+
 
 ### Walkthrough 4.1: Install GitHub Copilot in Visual Studio Professional (30 minutes)
 

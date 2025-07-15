@@ -2,21 +2,14 @@
 
 ## 🎯 Learning Objectives
 
-By the end of Day 3, you will:
-- Configure Azure AI Search using Azure Portal with sample documents
+By the end of Day 4, you will:
+
 - Implement Semantic Kernel for AI orchestration in C# applications
 - Connect to existing Azure AI Foundry agents using Semantic Kernel
 - Build group chat orchestration with connected agents
 - Create progressive automation workflows that build upon each other
 
 ## 📚 Key Concepts
-
-### AI Search Integration
-- **Azure AI Search Overview**: Intelligent search service for migration data
-  - Semantic search capabilities with vector embeddings
-  - Portal-based configuration for rapid prototyping
-  - Integration with Azure AI services for content enrichment
-  - Scalable indexing and querying for migration documentation
 
 ### Semantic Kernel Architecture
 - **SK Framework Overview**: Microsoft's enterprise AI orchestration platform
@@ -33,99 +26,6 @@ By the end of Day 3, you will:
   - State management across distributed conversations
 
 ## 🏗️ Tutorial Walkthroughs
-
-### Walkthrough 3.1: AI Search Using Azure Portal (45 minutes)
-
-**Summary**: Create an Azure AI Search service and index using the Azure Portal with sample migration documents. This walkthrough demonstrates the portal-based approach to setting up intelligent search for migration knowledge bases.
-
-**Prerequisites**: 
-- Azure subscription with contributor access
-- Azure AI Foundry project (optional, for agent integration)
-
-**Step-by-Step Guide**:
-
-**Step 1: Create Azure AI Search Service via Portal (10 minutes)**
-1. Navigate to [Azure Portal](https://portal.azure.com)
-2. Click "Create a resource" → Search for "Azure AI Search"
-3. Configure the service:
-   - **Service name**: `migration-search-demo`
-   - **Resource group**: Use existing or create new
-   - **Location**: East US 2
-   - **Pricing tier**: Free (for demo) or Basic
-4. Click "Review + Create" → "Create"
-5. Wait for deployment to complete
-
-**Step 2: Create Search Index with Sample Data (20 minutes)**
-1. Navigate to your Azure AI Search service in the portal
-2. Click "Add index" → "Using sample data"
-3. Select "Sample Migration Documents" or create custom sample:
-   - **Data source**: Choose "Upload JSON documents"
-   - **Index name**: `migration-knowledge-base`
-   - **Key field**: `id`
-
-4. Create sample migration documents (save as `sample-migration-docs.json`):
-   ```json
-   [
-     {
-       "id": "doc1",
-       "title": "Azure VM Migration Guide",
-       "content": "Complete guide for migrating on-premises virtual machines to Azure. This includes pre-migration assessment using Azure Migrate, sizing recommendations based on performance data, and step-by-step migration process. Key considerations include network configuration, storage requirements, and security group settings.",
-       "category": "Compute",
-       "migrationPhase": "Assessment",
-       "complexity": "Medium",
-       "estimatedHours": 24
-     },
-     {
-       "id": "doc2",
-       "title": "SQL Server Database Migration",
-       "content": "Best practices for migrating SQL Server databases to Azure SQL Database or Azure SQL Managed Instance. Covers database compatibility assessment, performance optimization strategies, security considerations, and minimal downtime migration techniques using Azure Database Migration Service.",
-       "category": "Database",
-       "migrationPhase": "Migration",
-       "complexity": "High",
-       "estimatedHours": 40
-     },
-     {
-       "id": "doc3",
-       "title": "Azure App Service Migration",
-       "content": "Migrating web applications to Azure App Service. Includes code analysis, configuration management, custom domain setup, SSL certificate configuration, and scaling strategies. Covers both .NET and Java applications with Docker container support.",
-       "category": "WebApp",
-       "migrationPhase": "Deployment",
-       "complexity": "Low",
-       "estimatedHours": 16
-     }
-   ]
-   ```
-
-5. Upload the JSON file using the portal's import wizard
-6. Configure index fields:
-   - **id**: Key field, retrievable
-   - **title**: Searchable, retrievable
-   - **content**: Searchable, retrievable
-   - **category**: Searchable, filterable, facetable
-   - **migrationPhase**: Filterable, facetable
-   - **complexity**: Filterable, facetable
-   - **estimatedHours**: Filterable, sortable
-
-**Step 3: Test Search Functionality (15 minutes)**
-1. Navigate to "Search explorer" in your Azure AI Search service
-2. Test basic search queries:
-   - Search: `"SQL Server"` (should return database migration doc)
-   - Search: `"virtual machine"` (should return VM migration doc)
-   - Search: `category:Database` (filtered search)
-   - Search: `migrationPhase:Assessment` (phase-specific search)
-
-3. Test semantic search (if available in your tier):
-   - Enable semantic search in Index configuration
-   - Test natural language queries: `"How to migrate databases with minimal downtime?"`
-
-4. Verify search results include:
-   - Document titles and content excerpts
-   - Relevance scoring
-   - Faceted navigation results
-
-**Documentation Reference**: [Azure AI Search Portal Guide](https://learn.microsoft.com/en-us/azure/search/search-get-started-portal)
-
-// ...existing code...
 
 ### Walkthrough 3.2: Semantic Kernel Setup and Azure AI Agent Connection (45 minutes)
 

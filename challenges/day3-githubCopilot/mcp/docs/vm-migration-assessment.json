@@ -1,0 +1,12 @@
+{
+  "id": "vm-migration-001",
+  "title": "Azure Virtual Machine Migration Assessment Guide",
+  "content": "This comprehensive guide covers the assessment phase of migrating on-premises virtual machines to Azure. Key steps include: 1) Installing Azure Migrate appliance in your on-premises environment, 2) Discovering and assessing VMs for compatibility, 3) Analyzing performance data over 7-30 days, 4) Reviewing Azure readiness reports including right-sizing recommendations, 5) Estimating monthly costs for Azure VMs, 6) Identifying potential issues like unsupported OS versions or hardware dependencies. The assessment typically takes 2-3 weeks for a complete evaluation including performance baseline collection.",
+  "category": "Compute",
+  "migrationPhase": "Assessment",
+  "complexity": "Medium",
+  "estimatedHours": 40,
+  "targetAzureService": "Azure Virtual Machines",
+  "prerequisites": ["Azure Migrate appliance", "Network connectivity", "VM performance data"],
+  "deliverables": ["Assessment report", "Cost estimation", "Migration timeline", "Risk analysis"]
+}
