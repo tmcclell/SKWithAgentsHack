@@ -13,9 +13,6 @@ By the end of Day 2, you will:
 ### RAG (Retrieval-Augmented Generation)
 RAG combines large language models with external knowledge retrieval to provide more accurate, up-to-date responses. In migration scenarios, RAG enables agents to access specific documentation, best practices, and organizational knowledge bases to make informed recommendations. Azure AI Foundry implements RAG through vector stores and knowledge bases, allowing agents to search and retrieve relevant information before generating responses.
 
-### Agent-to-Agent (A2A) Communication
-A2A refers to the communication protocol and architecture that enables autonomous agents to interact, share information, and coordinate tasks without human intervention. In Azure AI Foundry's connected agent system, A2A communication allows the main orchestrator agent to delegate specialized tasks to sub-agents and receive structured responses. This creates a collaborative multi-agent workflow where each agent contributes its domain expertise while maintaining clear boundaries and responsibilities. A2A patterns are essential for building scalable, maintainable agent systems that can handle complex migration scenarios through intelligent task distribution and result synthesis.
-
 ### Vector Stores
 Vector stores enable RAG (Retrieval-Augmented Generation) by storing and retrieving relevant information to enhance agent responses. In Azure AI Foundry, vector stores create searchable knowledge bases from uploaded documents, allowing agents to access specific migration documentation, best practices, and organizational knowledge. This ensures agents provide accurate, contextually relevant recommendations based on your specific migration scenarios and requirements rather than relying solely on general training data.
 
@@ -27,6 +24,7 @@ Vector stores provide superior contextual understanding for AI agents by matchin
 
 ### Connected Agents
 Connected agents enable collaborative multi-agent systems where a main agent intelligently delegates tasks to specialized sub-agents without requiring custom orchestration code. This modular approach improves reliability, traceability, and extensibility for complex workflows.
+
 ### A2A (Agent-to-Agent Communication)
 A2A enables autonomous agents to communicate and coordinate without human intervention. In Azure AI Foundry's connected agent architecture, a main orchestrator agent delegates specialized tasks to sub-agents (like Infrastructure Assessment, Risk Analysis, Migration Planning) and receives structured responses. This creates collaborative workflows where each agent contributes domain expertise while maintaining clear boundaries, essential for scalable migration automation through intelligent task distribution and result synthesis.
 
