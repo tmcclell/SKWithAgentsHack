@@ -1,4 +1,4 @@
-# Day 3: GitHub Copilot & MCP Integration
+# Day 3: GitHub Copilot & MCP
 
 ## 🎯 Learning Objectives
 
