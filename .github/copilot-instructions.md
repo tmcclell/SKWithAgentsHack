@@ -1,85 +1,297 @@
-# GitHub Copilot Instructions for SKWithAgentsHack
+# GitHub Copilot Instructions for Semantic Kernel Azure AI Agents Project
 
-## Project Overview
-This is a **4-day progressive hackathon** teaching AI-powered migration automation using Azure AI Foundry, Semantic Kernel, and multi-agent systems. The project transforms manual migration processes into intelligent, automated workflows.
+## 🧠 Project Goal
+Build a C# web application using the Semantic Kernel framework that connects to existing Azure AI Foundry agents. The app should expose a chat UI, support knowledge retrieval and action execution, leverage Semantic Kernel's group chat capabilities, include unit tests, and be deployable via `azd`.
 
-## Core Architecture Patterns
+---
 
-### Multi-Agent System Design
-- **Connected Agents**: Main orchestrator delegates to specialized sub-agents (Infrastructure Assessment, Risk Analysis, Migration Planning, Cost Analysis)
-- **Agent Catalog Templates**: Use pre-built templates from Azure AI Foundry for common scenarios
-- **Tool Integration**: Agents use Bing Custom Search, OpenAPI, Logic Apps, and custom functions
+## 🧱 Technology Stack & Integration Points
 
-### Migration Domain Context
-- **Target Scenarios**: Enterprise applications, databases, infrastructure, PLC controllers
-- **Key Artifacts**: Software analysis reports, migration steps, validation checklists, customer communication templates
-- **Sample Data**: Located in `challenges/day1-foundation/docs/` - reference these for realistic migration scenarios
+### Core Frameworks
+- **Language**: C# (.NET 8+)
+- **Framework**: Microsoft Semantic Kernel
+- **Agent Integration**: Azure AI Foundry + AzureAIAgent SDK
+- **Group Chat**: Semantic Kernel Group Chat API
+- **UI**: Blazor Server or SignalR-based chat interface
+- **Configuration**: .env file for secrets and keys
+- **CI/CD**: Azure Developer CLI (`azd`)
+- **Testing**: xUnit with test containers
+- **Authentication**: Azure CLI credentials or Managed Identity
 
-## Technology Stack & Integration Points
+### Azure Services
+- Azure AI Foundry (existing agents with knowledge and actions)
+- Azure OpenAI Service (if needed for additional models)
+- Azure App Service (deployment target)
+- Azure Key Vault (production secrets)
 
-### Azure AI Foundry (Days 1-2)
-- **Agent Creation**: Portal-based configuration with system messages and tool integration
-- **Vector Stores**: RAG-enabled knowledge bases for migration documentation
-- **Content Filters**: Responsible AI policies for enterprise deployment
-- **Logic Apps**: Email automation and workflow orchestration
+---
 
-### Semantic Kernel (Days 3-4)
-- **Plugin Architecture**: Extensible AI capabilities with function calling
-- **Group Chat Orchestration**: Multi-agent coordination with round-robin management
-- **Memory Management**: Context handling across long-running processes
-- **Azure AI Search**: Intelligent search with vector embeddings
+## 🏗️ Project Structure
 
-### GitHub Copilot & MCP (Day 3)
-- **Agent Mode**: Conversational AI for complex development tasks
-- **MCP Integration**: Client-server architecture for AI model communication
-- **Visual Studio Professional**: Primary development environment
-
-## Development Workflow
-
-### Project Structure
 ```
-challenges/
-├── day1-foundation/        # Azure AI Foundry basics
-│   └── docs/              # Migration domain knowledge
-├── day2-ai-integration/    # Connected agents & advanced tools
-├── day3-githubCopilot/     # Copilot & MCP integration
-├── day3-semantic kernel/   # (Empty placeholder)
-└── day4-semantic kernel/   # Semantic Kernel orchestration
+src/
+├── SemanticKernelAgents.Web/          # Blazor/Web UI
+├── SemanticKernelAgents.Core/         # Business logic and SK integration
+├── SemanticKernelAgents.Agents/       # Azure AI Foundry agent wrappers
+├── SemanticKernelAgents.Models/       # DTOs and models
+└── SemanticKernelAgents.Tests/        # Unit tests
+infra/                                 # Bicep/ARM templates for azd
+.env                                   # Local development secrets
+azure.yaml                           # azd configuration
+appsettings.json                     # Application configuration
 ```
 
-### Key Commands & Setup
-- **Azure Login**: `az login && az account set --subscription "YOUR_SUBSCRIPTION_ID"`
-- **Resource Group**: `az group create --name "rg-ai-foundry-hack" --location "eastus2"`
-- **Prerequisites**: .NET 8.0 SDK, Azure CLI, Azure Functions Core Tools v4
+---
 
-## Project-Specific Conventions
+## 🔌 Agent Integration Patterns
 
-### Agent Configuration Patterns
-- **System Messages**: Always include specific role definitions and Azure best practices
-- **Tool Integration**: Use descriptive action names (e.g., `send_migration_email`)
-- **Error Handling**: Implement retry logic and graceful degradation
+### 1. Connect to Azure AI Foundry Agents
+```csharp
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Agents.AzureAI;
 
-### Migration Domain Expertise
-- **PLC Controllers**: Reference firmware versions, hardware models, custom code analysis
-- **Enterprise Systems**: Include dependency mapping, compatibility checks, backup strategies
-- **Risk Assessment**: Always consider downtime, data loss, and rollback scenarios
+// Load from .env file
+var connectionString = Environment.GetEnvironmentVariable("AZURE_AI_FOUNDRY_CONNECTION_STRING");
+var client = AzureAIAgent.CreateAzureAIClient(connectionString, new AzureCliCredential());
+var agentsClient = client.GetAgentsClient();
+var agent = new AzureAIAgent(agentDefinition, agentsClient);
+```
 
-### Documentation Standards
-- **Step-by-Step Guides**: Include time estimates (e.g., "45 minutes")
-- **Prerequisites**: List required Azure resources and access levels
-- **Testing Scenarios**: Provide realistic migration examples for validation
+### 2. Semantic Kernel Group Chat Setup
+```csharp
+using Microsoft.SemanticKernel.Agents;
+using Microsoft.SemanticKernel.Agents.Chat;
 
-## When Working on This Codebase
+var chatHistory = new ChatHistory();
+var groupChat = new AgentGroupChat(agent1, agent2, agent3)
+{
+    ExecutionSettings = new()
+    {
+        TerminationStrategy = new KernelFunctionTerminationStrategy(terminationFunction, kernel)
+    }
+};
+```
 
-1. **Understand the Learning Progression**: Each day builds on previous concepts
-2. **Focus on Azure Portal Workflows**: Most configuration is portal-based, not code-based
-3. **Reference Migration Scenarios**: Use the docs/ folder for realistic examples
-4. **Consider Multi-Agent Orchestration**: Think about task delegation and agent specialization
-5. **Maintain Enterprise Focus**: All solutions should be production-ready with proper monitoring
+### 3. Knowledge Retrieval Integration
+```csharp
+// Integrate with existing agent's knowledge base
+var knowledgeFunction = agent.AsKernelFunction("SearchKnowledge");
+var result = await kernel.InvokeAsync(knowledgeFunction, new() { ["query"] = userQuery });
+```
 
-## Common Patterns to Follow
+---
 
-- **Agent Instructions**: Always include numbered role definitions and specific deliverables
-- **Tool Descriptions**: Use clear action names and parameter descriptions
-- **Error Scenarios**: Document retry logic and fallback strategies
-- **Integration Points**: Clearly define API endpoints and authentication methods
+## 🎨 UI Development Guidelines
+
+### Chat Interface Requirements
+- Real-time messaging with SignalR
+- Message history persistence
+- File upload capabilities for knowledge queries
+- Multi-agent conversation visualization
+- Typing indicators and message status
+- Responsive design for mobile/desktop
+
+### Blazor Components Structure
+```csharp
+// ChatComponent.razor
+@using Microsoft.SemanticKernel.Agents
+@inject IAgentService AgentService
+@inject IJSRuntime JSRuntime
+
+<div class="chat-container">
+    <ChatHistory Messages="@messages" />
+    <MessageInput OnSendMessage="HandleSendMessage" />
+</div>
+```
+
+---
+
+## 🧪 Testing Strategy
+
+### Unit Test Patterns
+```csharp
+[Fact]
+public async Task Agent_Should_ProcessMessage_Successfully()
+{
+    // Arrange
+    var mockAgent = new Mock<IAzureAIAgent>();
+    var service = new AgentService(mockAgent.Object);
+    
+    // Act
+    var result = await service.ProcessMessageAsync("test message");
+    
+    // Assert
+    Assert.NotNull(result);
+    mockAgent.Verify(x => x.InvokeAsync(It.IsAny<string>()), Times.Once);
+}
+```
+
+### Integration Tests
+- Test containers for Azure services
+- Mock Azure AI Foundry responses
+- End-to-end chat flow testing
+- Group chat orchestration tests
+
+---
+
+## 📋 Environment Configuration
+
+### .env File Structure
+```env
+# Azure AI Foundry
+AZURE_AI_FOUNDRY_CONNECTION_STRING=your_connection_string_here
+AZURE_AI_FOUNDRY_ENDPOINT=https://your-instance.cognitiveservices.azure.com/
+AZURE_AI_FOUNDRY_API_KEY=your_api_key_here
+
+# Azure OpenAI (if needed)
+AZURE_OPENAI_ENDPOINT=https://your-openai.openai.azure.com/
+AZURE_OPENAI_API_KEY=your_openai_key_here
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
+
+# Application Settings
+ASPNETCORE_ENVIRONMENT=Development
+AZURE_CLIENT_ID=your_client_id
+AZURE_CLIENT_SECRET=your_client_secret
+AZURE_TENANT_ID=your_tenant_id
+```
+
+### appsettings.json Configuration
+```json
+{
+  "SemanticKernel": {
+    "AgentSettings": {
+      "MaxTokens": 4000,
+      "Temperature": 0.7,
+      "GroupChatSettings": {
+        "MaxRounds": 10,
+        "TimeoutMinutes": 5
+      }
+    }
+  }
+}
+```
+
+---
+
+## 🚀 Development Workflow
+
+### Common Commands
+```bash
+# Setup development environment
+azd auth login
+azd env new
+azd up
+
+# Run locally
+dotnet run --project src/SemanticKernelAgents.Web
+
+# Run tests
+dotnet test
+
+# Deploy to Azure
+azd deploy
+```
+
+### Azure Developer CLI Configuration
+```yaml
+# azure.yaml
+name: semantic-kernel-agents
+metadata:
+  template: semantic-kernel-agents@1.0.0
+services:
+  web:
+    project: src/SemanticKernelAgents.Web
+    language: csharp
+    host: appservice
+```
+
+---
+
+## 📝 Coding Standards & Patterns
+
+### Dependency Injection Setup
+```csharp
+// Program.cs
+builder.Services.AddSemanticKernel();
+builder.Services.AddAzureAIAgents(builder.Configuration);
+builder.Services.AddSignalR();
+builder.Services.AddScoped<IAgentService, AgentService>();
+builder.Services.AddScoped<IChatOrchestrator, ChatOrchestrator>();
+```
+
+### Error Handling
+- Use structured logging with Serilog
+- Implement retry policies for Azure service calls
+- Graceful degradation for agent failures
+- User-friendly error messages in chat UI
+
+### Security Considerations
+- Validate all user inputs
+- Implement rate limiting
+- Use Azure Key Vault for production secrets
+- Secure SignalR connections with authentication
+
+---
+
+## 🔄 CI/CD Pipeline
+
+### GitHub Actions Integration
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to Azure
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+      - name: Login to Azure
+        uses: azure/login@v1
+      - name: Deploy with azd
+        run: azd deploy --no-prompt
+```
+
+### Testing in Pipeline
+- Unit tests with code coverage
+- Integration tests with test containers
+- UI tests with Playwright
+- Security scanning with CodeQL
+
+---
+
+## 🎯 Development Best Practices
+
+### Performance Optimization
+- Use async/await patterns consistently
+- Implement caching for frequently accessed data
+- Optimize SignalR connection management
+- Monitor Azure service quotas and limits
+
+### Monitoring & Observability
+- Application Insights integration
+- Custom telemetry for agent interactions
+- Performance counters for group chat
+- Health checks for Azure services
+
+### Documentation Requirements
+- XML documentation for public APIs
+- README with setup instructions
+- API documentation with OpenAPI/Swagger
+- Architecture decision records (ADRs)
+
+---
+
+## 🤖 Copilot Agent Mode Instructions
+
+When working in agent mode:
+1. **Multi-file Context**: Always consider the full project structure
+2. **Incremental Development**: Build features incrementally with tests
+3. **Azure Integration**: Prefer Azure services and follow cloud-native patterns
+4. **Real-time Features**: Implement SignalR for chat functionality
+5. **Configuration-driven**: Use .env and appsettings for all configurations
+6. **Testing-first**: Write tests alongside feature implementation
+7. **Deployment-ready**: Ensure all code works with azd deployment
